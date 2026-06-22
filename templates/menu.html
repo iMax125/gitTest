@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Меню COFFEE_IKA</title>
+</head>
+<body>
+    <h1>Меню кав'ярні COFFEE_IKA</h1>
+
+    <p>Сьогодні: {{ weekday }}</p>
+
+    <ul>
+        {% for item, price in menu.items() %}
+            {% if weekday == "Friday" %}
+                <li>{{ item }} — {{ price * 0.9 }} грн (зі знижкою)</li>
+            {% else %}
+                <li>{{ item }} — {{ price }} грн</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
