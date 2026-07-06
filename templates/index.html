@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подарки</title>
+</head>
+<body>
+
+<h1>Идеи подарков</h1>
+
+{% for m in get_flashed_messages() %}
+    <p style="color: green;">{{ m }}</p>
+{% endfor %}
+
+<h2>Добавить</h2>
+<form method="POST">
+    <input type="text" name="gift" required>
+    <button type="submit">Добавить</button>
+</form>
+
+<h2>Найти</h2>
+<form method="GET">
+    <input type="text" name="search">
+    <button type="submit">Найти</button>
+</form>
+
+{% if result %}
+    <p><b>{{ result }}</b></p>
+{% endif %}
+
+<h2>Список</h2>
+<ul>
+    {% for g in gifts %}
+        <li>{{ g }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
