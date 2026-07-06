@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Products</title>
+</head>
+<body>
+  <h1>Product manager</h1>
+
+  {% with messages = get_flashed_messages() %}
+    {% for msg in messages %}
+      <p>{{ msg }}</p>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- форма для додавання товару -->
+  <h3>Add product:</h3>
+
+  <form method="POST">
+    <input name="title" type="text" placeholder="Title">
+    <input name="price" type="number" placeholder="Price">
+    <input name="category" type="text" placeholder="Category">
+
+    <button type="submit">Add</button>
+  </form>
+
+  <!-- список всіх товарів -->
+  <h3>Products:</h3>
+
+  <!--
+  table - таблиця
+  thead - шапка
+  tbody - дані
+  tfoot - інформація під таблицею
+
+  tr - ряд
+  th - комірка з жирним текстом
+  td - комірка з даними
+
+  border - обводка
+  cellpadding - для місця в комірці
+  -->
+
+  <table border="1" cellpadding="5">
+
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Action</th>
+        <th>Edit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for title, info in products.items() %}
+        <tr>
+          <td>{{ title }}</td>
+          <td>{{ info['price'] }}</td>
+          <td>{{ info['category'] }}</td>
+
+          <td>
+            <!--передаємо назву товару для динамічної адреси-->
+            <a href="{{ url_for('delete', name_product=title) }}">
+              <button>Delete</button>
+            </a>
+          </td>
+
+          <td>
+            <a href="{{ url_for('edit', name_product=title) }}">
+              <button>Edit</button>
+            </a>
+          </td>
+
+        </tr>
+      {% endfor %}
+
+    </tbody>
+
+    <tfoot></tfoot>
+  </table>
+
+</body>
+</html>
