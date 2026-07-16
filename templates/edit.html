@@ -1,0 +1,11 @@
+<h1>Edit {{ product.name }}</h1>
+
+<form method="POST">
+    <label>Price:</label>
+    <input type="number" name="price" value="{{ product.price }}" step="0.01">
+
+    <label>Category:</label>
+    <input type="text" name="category" value="{{ product.category }}">
+
+    <button type="submit">Save</button>
+</form>
