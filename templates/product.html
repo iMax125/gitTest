@@ -1,3 +1,12 @@
+<nav class="navbar navbar-light bg-light p-3">
+    {% if session.get('user') %}
+        <span class="me-3">Вітаю, {{ session.get('user') }}!</span>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">LogOut</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+    {% endif %}
+</nav>
+
 <a href="{{ url_for('edit', name_product=product.name) }}">
     <button>Edit</button>
 </a>
