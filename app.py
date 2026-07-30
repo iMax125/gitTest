@@ -10,6 +10,18 @@ app.secret_key = 'secret_key'
 init_db()
 
 
+def validate_password(password):
+    if len(password) < 6:
+        return "Пароль має бути не коротший за 6 символів!"
+    if not re.search(r"[A-Za-z]", password):
+        return "Пароль має містити хоча б одну літеру!"
+    if not re.search(r"[0-9]", password):
+        return "Пароль має містити хоча б одну цифру!"
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+        return "Пароль має містити хоча б один спецсимвол!"
+    return None
+
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/products', methods=['GET', 'POST'])
 def products():
@@ -78,20 +90,9 @@ def register():
             flash("Логін не може бути порожнім!")
             return redirect(url_for('register'))
 
-        if len(password) < 6:
-            flash("Пароль має бути не коротший за 6 символів!")
-            return redirect(url_for('register'))
-
-        if not re.search(r"[A-Za-z]", password):
-            flash("Пароль має містити хоча б одну літеру!")
-            return redirect(url_for('register'))
-
-        if not re.search(r"[0-9]", password):
-            flash("Пароль має містити хоча б одну цифру!")
-            return redirect(url_for('register'))
-
-        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-            flash("Пароль має містити хоча б один спецсимвол!")
+        error = validate_password(password)
+        if error:
+            flash(error)
             return redirect(url_for('register'))
 
         if Company.select().where(Company.login == login).exists():
